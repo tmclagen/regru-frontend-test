@@ -1,92 +1,92 @@
 [
   {
-    "id": "",
+    "id": "205063",
     "title": "Investigating using Swap start time to decide state of a Compositor Frame",
     "description": "The `state` of a compositor frame (i.e. PipelineReporter trace event) is dependant on the duration from start (vsync) to final Presentation time.\n\nHowever, because the presentation times are not always accurate on all platforms, we allow some wiggle room which is longer than vsync interval.  I believe it is currently set to 1.5x\n\nIf *all* sequences of frames slip passed vsync frame deadline, that can still mean that all frames are presented to display smoothly, just with 1 frame of latency.\n\nHowever, if only *some* frames miss deadline, while others do not, this means that some frames end up dropped (i.e. not actually presented to display) even when reported as PRESENTED_ALL.\n\nWhile we may not always be able to trust the reported frame presentation times on all platforms, perhaps we can try at least to use the \"start of Swap\" or maybe \"end of Swap\" timestamp, which we know is the earliest moment possible that a frame could be presented.\n\nIf the duration between vsync start and swap start is greater than the frame interval, we know for sure that this frame update will be stale/latent.\n\nWe could adjust normalized dropped frames in a similar way to how we do with late main updates: check if there is at least one impl update per frame.  If there are 0 updates in one frame, that's a drop.  If there are 2 submits, that's just 1 presentation.\n",
     "status": 2,
     "responsible": "Gale R. Brown"
   },
   {
-    "id": "",
+    "id": "205064",
     "title": "Update delegatesFocus to match recent spec changes",
     "description": "* Make it use the shadow tree instead of the flat tree\n\n* Make unfocusing (via blur()) symmetric to focusing (via focus())\n\nSpec change: https://github.com/whatwg/html/pull/7079\n\nTests:\n\n* https://github.com/web-platform-tests/wpt/pull/30875\n* https://github.com/web-platform-tests/wpt/pull/31349",
     "status": 3,
     "responsible": "Joseph R. Walker"
   },
   {
-    "id": "",
+    "id": "205065",
     "title": "position: absolute combined with translateY causes webview to jump",
     "description": "Chrome Version       : 95.0.4638.69 (Official Build) Arch Linux (64-bit)\nURLs (if applicable) : https://scrumplex.gitlab.io/chromium-absolute-transform-bug-demo/ (Demo website I have created)\nOther browsers tested:\n     Safari: OK\n    Firefox: OK\n       Edge: ?\n\nWhat steps will reproduce the problem?\n(1) Load the demo website\n(2) Reload a few times\n(3) If the page did not scroll, scroll manually and reload again\n\nWhat is the expected result?\nPage should stay at the same location after the reload.\n\nWhat happens instead?\nWindow jumps down the amount of the transform down (in this case translateY(1000px) causes it to jump 1000px down)",
     "status": 2,
     "responsible": "Gale R. Brown"
   },
   {
-    "id": "",
+    "id": "205066",
     "title": "[V8 Perf Sheriff]: 1 regressions in v8.browsing_desktop-future",
     "description": "All graphs for this regression group at 934859:934961:\n  https://chromeperf.appspot.com/group_report?group_id=f3a96dca-e628-49d2-a6df-d0d5a389f307\n\nTop 1 regressions (out of 12, with 11 improvements) in this group:\n  - ChromiumPerf/linux-perf-calibration/v8.browsing_desktop-future/V8 C++:duration_avg/browse_media/browse_media_pinterest_2018\n        7.70%: 1047.351 -> 1127.966 ms\n\nTop 1 affected measurements in linux-perf-calibration:\n  - v8.browsing_desktop-future/V8 C++:duration_avg/browse_media/browse_media_pinterest_2018\n        7.70%: 1047.351 -> 1127.966 ms\n\nRegressions grouped by v8.browsing_desktop-future includes data from the following benchmarks with listed owners:\n  v8.browsing_desktop-future: almuthanna@chromium.org, cbruni@chromium.org, tmrts@chromium.org\n      \n\nCommits in this range:\n  Chromium Commit Position: http://test-results.appspot.com/revision_range?start=934884&end=935359&n=1000\n  V8 Commit Position: https://chromium.googlesource.com/v8/v8/+log/2bf30087159cb61636f0127ad17856af52bfbb0b..fabb677a3acc3dbe8882e632c3071ef04cd2b9d4\n  WebRTC Git Hash: https://webrtc.googlesource.com/src/+log/5e67b6a90dba39a99d85b35cacf820bf85cea1b1..519c15de2b860ea6114a4abf54625041f5784465\n  Chromium Git Hash: https://chromium.googlesource.com/chromium/src/+log/c0b454b0c0d6243c2b54289082d47d6d1579a8f6..15caeeb12d9f10196fb4567bb2c5ad808f73b108",
     "status": 1,
     "responsible": "Kevin M. Tobar"
   },
   {
-    "id": "",
+    "id": "205067",
     "title": "The border color around \"Relaunch\" button is getting mixed with background focus",
     "description": "Chrome Version : 97.0.4688.0 (Official Build) (64-bit) (cohort: 95_Win_69)58ccdaec223137eca0f6d9600db94b24ad47f538-refs/branch-heads/4688@{#1}\n\nOS: Win (7,10,11), Mac(11.6,10.15.7) and Linux \n\nSteps to reproduce:\n1.Launch chrome and open NTP\n2.Navigate to \"chrome://settings/system\"\n3.Uncheck the \"Use hardware acceleration when available\" option\n4.Hover the mouse on \"Use hardware acceleration when available\" option\n5.Observe\n\nActual Result : The border color around \"Relaunch\" button is getting mixed with background focus\n \nExpected Result : The border color around \"Relaunch\" button should not get mixed with background focus\n \nThis is a NR issue, Since M-91 as this feature is added from #91.0.4442.0, Making the status to Untriaged so that the issue would get addressed.\n\nNote:\n1.Issue is existing on latest Beta build #96.0.4664.27\n2.Issue is existing on latest Stable build #95.0.4638.69\n3.Issue is existing on latest Dev build #97.0.4681.0\n4.Verified the issue on Mac(11.6,10.15.7) using available Canary #97.0.4687.2, able to repro\n\n\nKindly refer the attached screen cast below.\n\nThank You !",
     "responsible": "Joseph R. Walker"
   },
   {
-    "id": "",
+    "id": "205068",
     "title": "Step \"content_browsertests on Ubuntu-18.04\" failing on builder \"linux-ubsan-vptr\"",
     "description": "Filed by sheriff-o-matic@appspot.gserviceaccount.com on behalf of keishi@google.com\n\nStep \"content_browsertests on Ubuntu-18.04\" failing on builder \"linux-ubsan-vptr\"\n\nList of failed builders:\n\nBuilder: linux-ubsan-vptr\nhttps://ci.chromium.org/p/chromium/builders/ci/linux-ubsan-vptr\nFirst failing build:\nhttps://ci.chromium.org/p/chromium/builders/ci/linux-ubsan-vptr/b8831985562470921057",
     "status": 1,
     "responsible": "Carolyn W. Lemmons"
   },
   {
-    "id": "",
+    "id": "205069",
     "title": "Regression : The report is not getting generated",
     "description": "Chrome Version : 97.0.4687.2 (Official Build) (64-bit) (cohort: Stable)6e9adf4a0262b0e01eb381b3387ff8f57f8f7825-refs/branch-heads/4687@{#4}\n\nOS : Win(7,10,11), Mac(12.0, 11.6, 10.15.7) and Linux \n\nSteps to reproduce:\n1.Launch chrome and open NTP\n2.Navigate to \"https://www.google.com/\"\n2.Navigate to \"DevTools\" by clicking \"F12\" on keyboard\n3.Select \"Lighthouse\" tab\n5.Click on \"Generate report\"\n6.Observe\n\nActual Result : The report is not getting generated\n\nExpected Result : The report should get generated \n\nThis is a Regression issue, broken in M-97, and will provide bisect info soon:\n\nGood build: 97.0.4685.0 (Revision : 936173)\nBad build : 97.0.4686.0 (Revision : 936612)\n\nNote : \n1.Issue is not existing on latest Beta build #96.0.4664.27\n2.Issue is not existing on latest Stable build #95.0.4638.69\n3.Issue is not existing on latest Dev build #97.0.4681.0\n\nKindly refer the attached screen-casts below.\n\nThank You!\n",
     "responsible": "Gale R. Brown"
   },
   {
-    "id": "",
+    "id": "205070",
     "title": "Big white area",
     "description": "Example URL:\nhttps://www.google.com/amp/s/www.cna.com.tw/amp/news/ahel/202110010024.aspx\n\nSteps to reproduce the problem:\nBrowse to the big wide area near the bottom of the article.\n\nWhat is the expected behavior?\n\nWhat went wrong?\nWhy is there a big white area?\n\nDoes it occur on multiple sites: N/A\n\nIs it a problem with a plugin? No \n\nDid this work before? N/A \n\nDoes this work in other browsers? N/A\n\nChrome version: 97.0.4686.2  Channel: n/a",
     "status": 3,
     "responsible": "Suzanne K. Padilla"
   },
   {
-    "id": "",
+    "id": "205071",
     "title": "MediaSource",
     "description": "UserAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36\n\nSteps to reproduce the problem:\n1. Connect a video element to a MediaSource (I'm using an adapted example from https://github.com/nickdesaulniers/netfix/blob/gh-pages/demo/bufferAll.html\n2. Create a MediaElementAudioSourceNode attached to that video element while the playback is paused\n3. Pressing play doesn't do anything\n\nWhat is the expected behavior?\nThe MediaElementAudioSourceNode shouldn't impact the playback\n\nWhat went wrong?\nPressing play (either with the controls or programmatically with .play()) doesn't work if the MediaElementAudioSourceNode is created while the video is paused. For my reproduction attachment, I wrapped it in a setTimeout so it's easy to evaluate the different scenarios:\n- waiting 5 seconds then pressing play (broken)\n- pressing play immediately (works fine, will continue playing even after the MediaElementAudioSourceNode is created)\n- pressing play then pause (within the first 5 seconds) and then trying to press play again after the MediaElementAudioSourceNode is created (broken)\n\nDid this work before? N/A \n\nDoes this work in other browsers? Yes\n\nChrome version: 95.0.4638.54  Channel: n/a\nOS Version: OS X 10.15.7",
     "responsible": "Carolyn W. Lemmons"
   },
   {
-    "id": "",
+    "id": "205072",
     "title": "Minimizing application window that is being shared over WebRTC using simulcast results in tab crash",
     "description": "UserAgent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:90.0) Gecko/20100101 Firefox/90.0\n\nSteps to reproduce the problem:\n1.Open index.html\n2.Hit the Start button\n3.Choose one of the windows to share\n4.Minimize shared window\n5.Tab with index.html crashes\n\nWhat is the expected behavior?\nTab should not crash and window sharing should continue on.\n\nWhat went wrong?\nTab crashed. Attached are debug logs and dump.\n\nDid this work before? N/A \n\nDoes this work in other browsers? Yes\n\nChrome version: 95.0.4638.69 (Official Build) (64-bit)  Channel: stable\nOS Version: Ubuntu 18.04.5 LTS\n\nThe cause of the crash is the resolution check in video_stream_encoder:\n#\n# Fatal error in: ../../third_party/webrtc/video/video_stream_encoder.cc, line 916\n# last system error: 1\n# Check failed: last_frame_info_->width >= highest_stream_width (2 vs. 16)",
     "responsible": ""
   },
   {
-    "id": "",
+    "id": "205073",
     "title": "workandincome.govt.nz",
     "description": "UserAgent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36\n\nExample URL:\n\nSteps to reproduce the problem:\n1.each\n2.\n3.\n\nWhat is the expected behavior?\n\nWhat went wrong?\nconnection is not private.\n\nDoes it occur on multiple sites: N/A\n\nIs it a problem with a plugin? N/A \n\nDid this work before? N/A \n\nDoes this work in other browsers? N/A\n\nChrome version: 95.0.4638.54  Channel: n/a\nOS Version: 6.1 (Windows 7, Windows Server 2008 R2)",
     "status": 2,
     "responsible": "Kevin M. Tobar"
   },
   {
-    "id": "",
+    "id": "205074",
     "title": "Lacros: \"Leave Site?\" dialog not visible",
     "description": "Chrome Version: 96.0.4664.25 beta\nLacros Version: 97.0.4666.2\nOS: CrOS\n\nWhat steps will reproduce the problem?\n(1) Create a new crbug (https://bugs.chromium.org/p/chromium/issues/entry) and type in some text\n(2) Click the \"Discard\" button in crbug\n(3) On the \"Discard your changes?\" dialog, click OK.\n\nWhat is the expected result?\nA second dialog appears, asking \"Leave Site? Changes that you made may not be saved.\" and the whole screen has a grey overlay, forcing you to only interact with the dialog.\n\nWhat happens instead?\nThe whole window has a grey overlay and is non-interactable, but the dialog is not shown. Pressing Esc or Enter still interacts with the invisible dialog.\nNote this works correctly on Ash-Chrome.",
     "responsible": "Suzanne K. Padilla"
   },
   {
-    "id": "",
+    "id": "205075",
     "title": "Filtering is console",
     "description": "Chrome Version       : <from chrome:95.0.4638.69>\nOS MacOs:11.6\n\nWhat steps will reproduce the problem?\n - create some console.log() in your JS code.\n - add some specific flag to this log. e.g. console.log(someData, 'someDataFlag')\n - go to devtool console\n - try to filter your consol.log via field Filter typeing \"someDataFlag\"\n\n\nWhat is the expected result?\n- console is showing only my console.log(someData, 'someDataFlag')\n\n\nWhat happens instead?\n - console is empty\n\nYou can help us a lot by creating a minimal, reproducible example\n(https://stackoverflow.com/help/minimal-reproducible-example), e.g. on\nglitch.com, and/or attaching a screenshot or recording of the issue!",
     "status": 1,
     "responsible": "Suzanne K. Padilla"
   },
   {
-    "id": "",
+    "id": "205076",
     "title": "Expose utility function to test whether a URL is within a web app's extended scope",
     "description": "Need a way to test whether a URL is within a web app's extended scope regardless of the user's link capturing preferences. This will be important to validate whether the web app can be launched with a given URL at all.",
     "responsible": "Carolyn W. Lemmons"
