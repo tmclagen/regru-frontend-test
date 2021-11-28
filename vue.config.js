@@ -5,9 +5,13 @@ const fakeStatuses = require('./data/fakeStatus.json');
 module.exports = {
     devServer: {
         before(app) {
-            app.get('/user/:id', (req, res) => {
+            app.get('/api/user', (req, res) => {
+                res.json(fakeStaff);
+            });
+
+            app.get('/api/user/:id', (req, res) => {
                 const userId = req.params.id;
-                const user = fakeStaff[userId];
+                const user = fakeStaff.find(item => item.id === userId);
 
                 if(!user) {
                     return void res.status(404).end();
@@ -16,13 +20,13 @@ module.exports = {
                 res.json(user);
             });
 
-            app.get('/issue', (req, res) => {
+            app.get('/api/issue', (req, res) => {
                 res.json(fakeIssues);
             });
 
-            app.get('/issue/:id', (req, res) => {
+            app.get('/api/issue/:id', (req, res) => {
                 const issueId = req.params.id;
-                const issue = fakeStaff[issueId];
+                const issue = fakeIssues.find(item => item.id === issueId);
 
                 if(!issue) {
                     return void res.status(404).end();
@@ -31,9 +35,9 @@ module.exports = {
                 res.json(issue);
             });
 
-            app.get('/status', (req, res) => {
+            app.get('/api/status', (req, res) => {
                 res.json(fakeStatuses);
-            })
+            });
         }
     }
 }
